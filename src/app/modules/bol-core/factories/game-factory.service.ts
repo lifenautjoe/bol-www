@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Game } from '../models/game';
+import { Game, GameData } from '../models/game';
 
 @Injectable()
 export class GameFactoryService {
@@ -8,8 +8,8 @@ export class GameFactoryService {
 
     }
 
-    make() {
-        return new Game();
+    make(data: GameData) {
+        return new Game(data);
     }
 
 }
