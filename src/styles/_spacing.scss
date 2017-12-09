@@ -1,4 +1,21 @@
 
-.padding-normal{
-  padding: 1rem;
+.padding{
+    padding:0.5rem;
+}
+
+.padding-1x{
+  padding: $spacing-1x;
+}
+
+.margin-bottom-1x{
+    margin-bottom: $spacing-1x;
+}
+
+
+.padding-2x{
+    padding: $spacing-2x;
+}
+
+.margin-bottom-2x{
+    margin-bottom: $spacing-2x;
 }
