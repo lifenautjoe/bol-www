@@ -13,3 +13,23 @@ $color-ls-text-secondary: rgba(0, 0, 0, 0.91);
 $color-ds-text-primary: white;
 
 $color-ds-text-secondary: rgba(255, 255, 255, 0.91);
+
+$color-white-alpha-9: rgba(255, 255, 255, 0.9);
+
+$color-action: #33cd8f;
+
+$color-action-darker: #34c384;
+
+$color-action-darkest: #34b97a;
+
+$color-error: #f1565a;
+
+/**
+* Spacing
+*/
+
+$spacing: 0.5rem;
+
+$spacing-1x: $spacing * 2;
+
+$spacing-2x : $spacing * 3;
