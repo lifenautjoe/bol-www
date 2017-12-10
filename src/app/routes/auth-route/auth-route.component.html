@@ -4,26 +4,30 @@
             <h1 class="auth-route-content-title__text">
                 manca<strong>live</strong>.
             </h1>
-            <p class="font-small">A realtime mancala experiment by <a href="https://github.com/lifenautjoe/">@lifenautjoe</a>.</p>
+            <p class="font-small">A realtime mancala experiment by <a href="https://github.com/lifenautjoe/">@lifenautjoe</a>.
+            </p>
         </div>
-        <div class="margin-bottom-1x auth-route-content__input">
-            <label for="username">
-                Got a name?
-            </label>
-            <input
-                class="font-center"
-                type="text"
-                name="username"
-                id="username"
-                pattern="[a-zA-Z0-9]{3,10}">
-        </div>
-        <div class="margin-bottom-2x font-tiny background-error padding">
-            Username taken, please try another one.
-        </div>
-        <div>
-            <button class="btn btn--primary">
-                Enter!
-            </button>
-        </div>
+        <form>
+            <div class="margin-bottom-1x auth-route-content__input">
+                <label for="username">
+                    Got a name?
+                </label>
+                <input
+                    class="font-center"
+                    type="text"
+                    name="username"
+                    id="username"
+                    pattern="[a-zA-Z0-9]{3,10}"
+                    [(ngModel)]="userName">
+            </div>
+            <div class="margin-bottom-2x font-tiny background-error padding" *ngIf="errorMessage">
+                {{errorMessage}}
+            </div>
+            <div>
+                <button type="submit" class="btn btn--primary" [disabled]="!userName" (click)="logInUser()">
+                    Enter!
+                </button>
+            </div>
+        </form>
     </div>
 </div>
