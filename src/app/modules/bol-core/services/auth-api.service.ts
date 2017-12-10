@@ -8,8 +8,8 @@ import { PromisedHttpService } from './promised-http.service';
 
 @Injectable()
 export class AuthApiService {
-    private static readonly LOGIN_URL = 'users/logIn';
-    private static readonly LOGOUT_URL = 'users/logOut';
+    private static readonly LOGIN_URL = 'api/users/login';
+    private static readonly LOGOUT_URL = 'api/users/logout';
 
     constructor(private promisedHttpService: PromisedHttpService,
                 private userFactoryService: UserFactoryService) {
