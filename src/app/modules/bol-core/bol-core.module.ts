@@ -5,9 +5,13 @@ import { AuthApiService } from './services/auth-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PromisedHttpService } from './services/promised-http.service';
 import { LoggerFactoryService } from './services/logger-factory.service';
+import { UserFactoryService } from './factories/user-factory.service';
+import { GameFactoryService } from './factories/game-factory.service';
 
 @NgModule({
     providers: [
+        UserFactoryService,
+        GameFactoryService,
         AuthService,
         PromisedHttpService,
         AuthApiService,
