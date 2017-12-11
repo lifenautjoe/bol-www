@@ -1,3 +1,15 @@
-<div>
-  Games route!
+<div class="games-route background-brand color-ds-text-primary">
+    <div class="games-hud">
+        <div class="games-search">
+            <label for="search">Search games</label>
+            <input type="text" name="search" id="search" [(ngModel)]="gamesFilter">
+        </div>
+        <div class="games-actions">
+            <button class="btn btn--secondary">Refresh</button>
+            <button class="btn btn--primary">Create new game</button>
+        </div>
+    </div>
+    <div class="games" *ngFor="let game of games | searchGame:gamesFilter">
+        <bol-search-result-game [game]="game"></bol-search-result-game>
+    </div>
 </div>
