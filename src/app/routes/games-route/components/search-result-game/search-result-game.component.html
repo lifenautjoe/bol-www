@@ -1,0 +1,14 @@
+<div class="search-result-game">
+    <div class="search-result-game__details">
+        <div class="search-result-game-name">
+            {{game.getName()}}
+        </div>
+        <div class="search-result-game-full">
+            {{game.isFull()}}
+        </div>
+    </div>
+    <div class="search-result-game__actions" *ngIf="!game.isFull()">
+        <button class="btn btn-primary" (click)="onWantsToJoinGame(game)">Join game</button>
+    </div>
+
+</div>
