@@ -15,5 +15,13 @@ export const ROUTES = [
         canActivate: [
             AuthGuard
         ]
+    },
+    {
+        path: '', redirectTo: '/games',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: '/games'
     }
 ];
