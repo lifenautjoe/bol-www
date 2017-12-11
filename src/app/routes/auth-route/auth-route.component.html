@@ -18,13 +18,15 @@
                     name="username"
                     id="username"
                     pattern="[a-zA-Z0-9]{3,10}"
+                    [disabled]="userIsLoggedInCheckInProgress || logInInProgress"
                     [(ngModel)]="userName">
             </div>
             <div class="margin-bottom-2x font-tiny background-error padding" *ngIf="errorMessage">
                 {{errorMessage}}
             </div>
             <div>
-                <button type="submit" class="btn btn--primary" [disabled]="!userName" (click)="logInUser()">
+                <button type="submit" class="btn btn--primary" [disabled]="!userName || logInInProgress"
+                        (click)="logInUser()">
                     Enter!
                 </button>
             </div>
