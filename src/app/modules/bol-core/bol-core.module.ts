@@ -8,6 +8,8 @@ import { LoggerFactoryService } from './services/logger-factory.service';
 import { UserFactoryService } from './factories/user-factory.service';
 import { GameFactoryService } from './factories/game-factory.service';
 import { BolCoreEventsService } from './services/bol-core-events.service';
+import { GamesService } from './services/games.service';
+import { GamesApiService } from './services/games-api.service';
 
 @NgModule({
     imports: [
@@ -28,7 +30,9 @@ export class BolCoreModule {
                 AuthApiService,
                 AuthService,
                 LoggerFactoryService,
-                BolCoreEventsService
+                BolCoreEventsService,
+                GamesApiService,
+                GamesService
             ]
         };
     }
