@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { AuthApiService } from './services/auth-api.service';
@@ -7,17 +7,9 @@ import { PromisedHttpService } from './services/promised-http.service';
 import { LoggerFactoryService } from './services/logger-factory.service';
 import { UserFactoryService } from './factories/user-factory.service';
 import { GameFactoryService } from './factories/game-factory.service';
+import { BolCoreEventsService } from './services/bol-core-events.service';
 
 @NgModule({
-    providers: [
-        UserFactoryService,
-        GameFactoryService,
-        AuthService,
-        PromisedHttpService,
-        AuthApiService,
-        AuthService,
-        LoggerFactoryService
-    ],
     imports: [
         CommonModule,
         HttpClientModule
@@ -25,4 +17,19 @@ import { GameFactoryService } from './factories/game-factory.service';
     declarations: []
 })
 export class BolCoreModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: BolCoreModule,
+            providers: [
+                UserFactoryService,
+                GameFactoryService,
+                AuthService,
+                PromisedHttpService,
+                AuthApiService,
+                AuthService,
+                LoggerFactoryService,
+                BolCoreEventsService
+            ]
+        };
+    }
 }
