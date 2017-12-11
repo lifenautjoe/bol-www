@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { AuthApiService } from './auth-api.service';
 import { ApiResponse } from '../models/api-response';
 import * as Bluebird from 'bluebird';
+import { IsLoggedInParsedResponse } from '../models/is-logged-in-parsed-response';
 
 @Injectable()
 export class AuthService {
@@ -41,8 +42,14 @@ export class AuthService {
         return this.loggedInUser;
     }
 
-    isLoggedIn() {
-        return typeof this.loggedInUser !== 'undefined';
+    isLoggedIn(): Bluebird<boolean> {
+        if (typeof this.loggedInUser !== 'undefined') return Bluebird.resolve(true);
+        return this.authApiService.isLoggedIn().then((response: IsLoggedInParsedResponse) => {
+            if (response.loggedIn) {
+                this.setLoggedInUser(response.loggedInUser);
+            }
+            return response.loggedIn;
+        })
     }
 
     private setLoggedInUser(user: User) {
