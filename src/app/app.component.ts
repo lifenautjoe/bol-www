@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger;
         this.appBootstrapService.init();
     }
 }
