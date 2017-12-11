@@ -4,14 +4,16 @@
 import { BaseModel } from './base-model';
 
 export class Game extends BaseModel<GameData> {
-    private name: string;
-
     constructor(data: GameData) {
         super(data);
     }
 
     getName(): string {
-        return this.name;
+        return this.getDataKeyValue('name');
+    }
+
+    isFull() {
+        return this.getDataKeyValue('full');
     }
 }
 
