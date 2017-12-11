@@ -12,6 +12,10 @@ export class RouterHelperService {
         return this.router.navigateByUrl('/games');
     }
 
+    goToGame(): Promise<boolean> {
+        return this.router.navigateByUrl('/game');
+    }
+
     goToAuth(): Promise<boolean> {
         return this.router.navigateByUrl('/auth');
     }
