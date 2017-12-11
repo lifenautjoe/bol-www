@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../modules/bol-core/services/auth.service';
-import { RouterHelperService } from '../modules/bol-core/services/router-helper.service';
+import { RouterHelperService } from '../services/router-helper.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,8 +14,10 @@ export class AuthGuard implements CanActivate {
 
     canActivate(next: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (this.authService.isLoggedIn()) return true;
-        this.routerHelperService.goToAuth();
-        return false;
+        return this.authService.isLoggedIn().then((isLoggedIn) => {
+            if (isLoggedIn) return true;
+            this.routerHelperService.goToAuth();
+            return false;
+        }) as any;
     }
 }
