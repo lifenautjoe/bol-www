@@ -3,7 +3,6 @@
     padding: 1rem;
     border-radius: 3px;
     border: none;
-    min-width: 9rem;
     color: $color-ds-text-primary;
     cursor: pointer;
 
@@ -26,5 +25,15 @@
 }
 
 .btn--secondary {
+    background-color: $color-secondary-action;
 
+    transition: background-color 0.2s;
+
+    &:hover, &:focus {
+        background-color: $color-secondary-action-darker;
+    }
+
+    &:active {
+        background-color: $color-secondary-action-darkest;
+    }
 }
