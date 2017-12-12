@@ -23,6 +23,10 @@
     border-radius: 3px;
 }
 
+.games-hud-title{
+    margin-bottom: 0;
+}
+
 .games-hud{
     display: flex;
     justify-content: space-between;
@@ -45,9 +49,8 @@
         justify-content: flex-end;
         margin-top: 1rem;
         @media (min-width: 600px) {
-            width: 20%;
             margin:0;
-            justify-content: space-between;
+            flex:1;
         }
 
         .btn:first-child{

@@ -14,6 +14,7 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
     gamesFilter: string;
     games: Array<Game>;
     gamesRefreshInProgress: boolean;
+    wantsToCreateGame: boolean;
 
     private intervalHandle;
 
@@ -45,6 +46,14 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
 
     trackByGame(index, game: Game): string {
         return `${game.getName()}${game.isFull()}`
+    }
+
+    onWantsToCreateGame() {
+        this.wantsToCreateGame = true;
+    }
+
+    onNoLongerWantsToCreateGame() {
+        this.wantsToCreateGame = false;
     }
 
     private getGames(): Bluebird<Array<Game>> {
