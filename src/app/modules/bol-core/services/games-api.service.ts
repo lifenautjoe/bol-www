@@ -3,11 +3,12 @@ import * as Bluebird from 'bluebird';
 import { Game, GameData } from '../models/game';
 import { GameFactoryService } from '../factories/game-factory.service';
 import { PromisedHttpService } from './promised-http.service';
-import { ApiResponse } from '../models/api-response';
+import { ApiResponse } from '../responses/api-response';
+import { CreateGameResponse } from '../responses/create-game-response';
 
 @Injectable()
 export class GamesApiService {
-    private static readonly GAMES_URL = 'api/games/';
+    private static readonly GAMES_URL = 'api/games';
 
 
     constructor(private promisedHttpService: PromisedHttpService,
@@ -26,8 +27,20 @@ export class GamesApiService {
 
         const gameName = game.getName();
 
-        return this.promisedHttpService.post(`${GamesApiService.GAMES_URL}/${gameName}`, {
+        return this.promisedHttpService.post(`${GamesApiService.GAMES_URL}/join`, {
+            gameName
+        }, {
             responseType: 'json'
+        });
+    }
+
+    createGameWithName(gameName: string): Bluebird<Game> {
+        return this.promisedHttpService.put(GamesApiService.GAMES_URL, {
+            gameName
+        }, {
+            responseType: 'json'
+        }).then((response: CreateGameResponse) => {
+            return this.gameFactoryService.make(response);
         });
     }
 }

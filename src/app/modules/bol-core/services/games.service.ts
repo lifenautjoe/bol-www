@@ -17,4 +17,8 @@ export class GamesService {
         return this.gamesApiService.joinGame(game);
     }
 
+
+    createGameWithName(gameName: string): Bluebird<Game> {
+        return this.gamesApiService.createGameWithName(gameName);
+    }
 }
