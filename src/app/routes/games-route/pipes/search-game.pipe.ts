@@ -13,6 +13,6 @@ export class SearchGamePipe implements PipeTransform {
         }
         // filter games array, games which match and return true will be
         // kept, false will be filtered out
-        return games.filter(game => game.getName().indexOf(filter) !== -1);
+        return games.filter(game => game.getName().toUpperCase().indexOf(filter.toUpperCase()) !== -1);
     }
 }
