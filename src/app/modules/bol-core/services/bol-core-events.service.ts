@@ -10,6 +10,7 @@ export class BolCoreEventsService {
 
     userLoggedInEvent: NoelEvent;
     userJoinedGameEvent: NoelEvent;
+    userCreatedGameEvent: NoelEvent;
     userLoggedOutEvent: NoelEvent;
     logger: Logolous;
 
@@ -17,6 +18,7 @@ export class BolCoreEventsService {
         const ee = new Noel();
         this.userLoggedInEvent = ee.getEvent('userLoggedIn');
         this.userJoinedGameEvent = ee.getEvent('userJoinedGame');
+        this.userCreatedGameEvent = ee.getEvent('userCreatedGame');
         this.userLoggedOutEvent = ee.getEvent('userLoggedOut');
         this.logger = loggerFactory.make('BolCoreEventsService');
     }
@@ -46,5 +48,14 @@ export class BolCoreEventsService {
     emitUserJoinedGame(game: Game) {
         this.logger.info('Emitting userJoinedGame with user', game);
         return this.userJoinedGameEvent.emit(game);
+    }
+
+    onUserCreatedGame(listener) {
+        return this.userCreatedGameEvent.on(listener);
+    }
+
+    emitUserCreatedGame(game: Game) {
+        this.logger.info('Emitting userCreatedGame with user', game);
+        return this.userCreatedGameEvent.emit(game);
     }
 }
