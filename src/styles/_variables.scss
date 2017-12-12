@@ -16,11 +16,20 @@ $color-ds-text-secondary: rgba(255, 255, 255, 0.91);
 
 $color-white-alpha-9: rgba(255, 255, 255, 0.9);
 
+$color-black-alpha-3: rgba(0, 0, 0, 0.3);
+
 $color-action: #33cd8f;
+
 
 $color-action-darker: #34c384;
 
 $color-action-darkest: #34b97a;
+
+$color-secondary-action: #3c7af7;
+
+$color-secondary-action-darker: #3c77ed;
+
+$color-secondary-action-darkest: #3c72e3;
 
 $color-error: #f1565a;
 
@@ -32,4 +41,4 @@ $spacing: 0.5rem;
 
 $spacing-1x: $spacing * 2;
 
-$spacing-2x : $spacing * 3;
+$spacing-2x: $spacing * 3;
