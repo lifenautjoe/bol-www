@@ -1,6 +1,8 @@
 
 .btn {
-    padding: 1rem;
+    padding: 0.8rem;
+    min-height: 55px;
+    min-width: 55px;
     border-radius: 3px;
     border: none;
     color: $color-ds-text-primary;
@@ -35,5 +37,20 @@
 
     &:active {
         background-color: $color-secondary-action-darkest;
+    }
+}
+
+
+.btn--warn {
+    background-color: $color-warn;
+
+    transition: background-color 0.2s;
+
+    &:hover, &:focus {
+        background-color: $color-warn-darker;
+    }
+
+    &:active {
+        background-color: $color-warn-darkest;
     }
 }
