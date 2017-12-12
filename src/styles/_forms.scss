@@ -17,3 +17,8 @@ input:not([type=checkbox]):not([type=radio]) {
         outline: none;
     }
 }
+
+
+::placeholder {
+    color: rgba(0,0,0,0.1);
+}
