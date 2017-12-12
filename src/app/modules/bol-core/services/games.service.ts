@@ -13,8 +13,8 @@ export class GamesService {
         return this.gamesApiService.getGames();
     }
 
-    joinGame(game: Game): Bluebird<boolean> {
-
+    joinGame(game: Game): Bluebird<void> {
+        return this.gamesApiService.joinGame(game);
     }
 
 }

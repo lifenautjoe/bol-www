@@ -22,7 +22,12 @@ export class GamesApiService {
             });
     }
 
-    joinGame(): Bluebird<boolean> {
+    joinGame(game: Game): Bluebird<void> {
 
+        const gameName = game.getName();
+
+        return this.promisedHttpService.post(`${GamesApiService.GAMES_URL}/${gameName}`, {
+            responseType: 'json'
+        });
     }
 }
