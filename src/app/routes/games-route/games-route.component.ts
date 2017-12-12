@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Game } from '../../modules/bol-core/models/game';
 import * as Bluebird from 'bluebird';
 import { GamesService } from '../../modules/bol-core/services/games.service';
+import { BolCoreEventsService } from '../../modules/bol-core/services/bol-core-events.service';
+import { LoggerFactoryService, Logolous } from '../../modules/bol-core/services/logger-factory.service';
 
 @Component({
     selector: 'bol-games-route',
@@ -10,16 +12,26 @@ import { GamesService } from '../../modules/bol-core/services/games.service';
 })
 export class GamesRouteComponent implements OnInit, OnDestroy {
     private static readonly REFRESH_GAMES_INTERVAL = 5000;
-    // We filter the games list by this string
+    private static readonly ESCAPE_KEYCODE = 27;
+
+
     gamesFilter: string;
     games: Array<Game>;
-    gamesRefreshInProgress: boolean;
-    wantsToCreateGame: boolean;
 
+    gamesRefreshInProgress: boolean;
+
+    createGameViewVisible: boolean;
+    createGameInProgress: boolean;
+    createGameErrorMessage: string;
+    gameToCreateName: string;
+
+    private logger: Logolous;
     private intervalHandle;
 
-    constructor(private gamesService: GamesService) {
-
+    constructor(private loggerFactoryService: LoggerFactoryService,
+                private bolCoreEventsService: BolCoreEventsService,
+                private gamesService: GamesService) {
+        this.logger = loggerFactoryService.make('GamesRouteComponent');
     }
 
     ngOnInit() {
@@ -48,12 +60,32 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
         return `${game.getName()}${game.isFull()}`
     }
 
-    onWantsToCreateGame() {
-        this.wantsToCreateGame = true;
+    showCreateGameView() {
+        this.createGameViewVisible = true;
     }
 
-    onNoLongerWantsToCreateGame() {
-        this.wantsToCreateGame = false;
+    hideCreateGameView() {
+        this.createGameViewVisible = false;
+    }
+
+    createGame() {
+        this.createGameInProgress = true;
+        const gameName = this.gameToCreateName;
+        return this.gamesService.createGameWithName(gameName).then((game) => {
+            this.bolCoreEventsService.emitUserCreatedGame(game);
+        }).catch((err) => {
+            this.logger.error(`Could not create game with name "${gameName}" with error:`, err);
+            this.createGameErrorMessage = err.error.message;
+        }).finally(() => {
+            this.createGameInProgress = false;
+        });
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    private handleKeyboardEvent(event: KeyboardEvent) {
+        if (this.createGameViewVisible && event.keyCode === GamesRouteComponent.ESCAPE_KEYCODE) {
+            this.hideCreateGameView();
+        }
     }
 
     private getGames(): Bluebird<Array<Game>> {
