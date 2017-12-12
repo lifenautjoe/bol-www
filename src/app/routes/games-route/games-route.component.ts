@@ -34,6 +34,7 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
     }
 
     refreshGames(): Bluebird<void> {
+        if (this.gamesRefreshInProgress) return;
         this.gamesRefreshInProgress = true;
         return this.getGames().then((games) => {
             this.games = games;
@@ -42,7 +43,11 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
         });
     }
 
-    getGames(): Bluebird<Array<Game>> {
+    trackByGame(index, game: Game): string {
+        return `${game.getName()}${game.isFull()}`
+    }
+
+    private getGames(): Bluebird<Array<Game>> {
         return this.gamesService.getGames();
     }
 
