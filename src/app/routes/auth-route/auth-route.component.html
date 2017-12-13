@@ -7,7 +7,7 @@
             <p class="font-small">A realtime mancala experiment by <a href="https://github.com/lifenautjoe/">@lifenautjoe</a>.
             </p>
         </div>
-        <form>
+        <form #userForm="ngForm" (ngSubmit)="logInUser()">
             <div class="margin-bottom-1x auth-route-content__input">
                 <label for="username">
                     Got a name?
@@ -17,7 +17,10 @@
                     type="text"
                     name="username"
                     id="username"
-                    pattern="[a-zA-Z0-9]{3,10}"
+                    pattern="[a-zA-Z0-9]*"
+                    minlength="3"
+                    maxlength="12"
+                    required
                     [disabled]="userIsLoggedInCheckInProgress || logInInProgress"
                     [(ngModel)]="userName">
             </div>
@@ -25,8 +28,7 @@
                 {{errorMessage}}
             </div>
             <div>
-                <button type="submit" class="btn btn--primary" [disabled]="!userName || logInInProgress"
-                        (click)="logInUser()">
+                <button type="submit" class="btn btn--primary btn--wide" [disabled]="userForm.invalid || logInInProgress">
                     Enter
                 </button>
             </div>
