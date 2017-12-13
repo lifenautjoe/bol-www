@@ -33,7 +33,9 @@ export class SearchResultGameComponent implements OnInit {
             this.logger.info(`Joined game with name ${game.getName()}! Sending to game route!`);
             this.bolCoreEventsService.emitUserJoinedGame(game);
         }).catch((err) => {
-            this.logger.error(`User couldn't join game with name ${game.getName()} with error`, err);
+            const errMessage = err.error.message;
+            this.logger.error(`User couldn't join game with name ${game.getName()} with message "`, errMessage, '" and error', err);
+
         }).finally(() => {
             this.joinGameInProgress = false;
         })
