@@ -12,13 +12,19 @@ export class BolCoreEventsToRouterMediatorService {
 
     init() {
         this.bolCoreEventsService.onUserLoggedIn(() => {
-            debugger;
             this.routerHelperService.goToGames();
         });
 
         this.bolCoreEventsService.onUserLoggedOut(() => {
-            debugger;
             this.routerHelperService.goToAuth();
+        });
+
+        this.bolCoreEventsService.onUserJoinedGame(() => {
+            this.routerHelperService.goToGame();
+        });
+
+        this.bolCoreEventsService.onUserCreatedGame(() => {
+            this.routerHelperService.goToGame();
         });
     }
 }

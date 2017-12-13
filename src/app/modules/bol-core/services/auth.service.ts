@@ -3,9 +3,9 @@ import Noel from 'noel';
 import { NoelEvent } from 'noel/dist/types/event';
 import { User } from '../models/user';
 import { AuthApiService } from './auth-api.service';
-import { ApiResponse } from '../models/api-response';
+import { ApiResponse } from '../responses/api-response';
 import * as Bluebird from 'bluebird';
-import { IsLoggedInParsedResponse } from '../models/is-logged-in-parsed-response';
+import { IsLoggedInParsedResponse } from '../responses/is-logged-in-parsed-response';
 
 @Injectable()
 export class AuthService {

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { AuthRouteComponent } from './routes/auth-route/auth-route.component';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 import { BolCoreModule } from './modules/bol-core/bol-core.module';
@@ -15,7 +14,7 @@ import { RouterHelperService } from './services/router-helper.service';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,

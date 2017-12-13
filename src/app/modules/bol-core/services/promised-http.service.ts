@@ -33,4 +33,14 @@ export class PromisedHttpService {
         })
     }
 
+
+    put(url, body?, config?: Object): Bluebird<any> {
+        return new Bluebird((resolve, reject) => {
+            return this.httpClient.put(url, body, config).toPromise().then((response) => {
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            })
+        })
+    }
 }

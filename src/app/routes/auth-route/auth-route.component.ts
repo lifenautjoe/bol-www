@@ -31,7 +31,6 @@ export class AuthRouteComponent implements OnInit {
         this.userIsLoggedInCheckInProgress = true;
         return this.authService.isLoggedIn().then((isLoggedIn) => {
             if (isLoggedIn) {
-                debugger;
                 const loggedInUser = this.authService.getLoggedInUser();
                 this.onUserLoggedIn(loggedInUser);
             }

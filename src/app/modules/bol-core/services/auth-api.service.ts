@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { User, UserData } from '../models/user';
 import { UserFactoryService } from '../factories/user-factory.service';
 import 'rxjs/add/operator/toPromise';
-import { ApiResponse } from '../models/api-response';
+import { ApiResponse } from '../responses/api-response';
 import * as Bluebird from 'bluebird';
 import { PromisedHttpService } from './promised-http.service';
-import { IsLoggedInResponse } from '../models/is-logged-in-response';
-import { IsLoggedInParsedResponse } from '../models/is-logged-in-parsed-response';
+import { IsLoggedInResponse } from '../responses/is-logged-in-response';
+import { IsLoggedInParsedResponse } from '../responses/is-logged-in-parsed-response';
 
 @Injectable()
 export class AuthApiService {

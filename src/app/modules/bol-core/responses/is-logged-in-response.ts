@@ -2,7 +2,7 @@
  * @author Joel Hernandez <lifenautjoe@gmail.com>
  */
 
-export class IsLoggedInResponse {
+export interface IsLoggedInResponse {
     loggedIn: boolean;
     userName?: string;
 }
