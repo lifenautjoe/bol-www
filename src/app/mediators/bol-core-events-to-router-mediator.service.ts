@@ -22,5 +22,9 @@ export class BolCoreEventsToRouterMediatorService {
         this.bolCoreEventsService.onUserJoinedGame(() => {
             this.routerHelperService.goToGame();
         });
+
+        this.bolCoreEventsService.onUserCreatedGame(() => {
+            this.routerHelperService.goToGame();
+        });
     }
 }
