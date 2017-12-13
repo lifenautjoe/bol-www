@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from '../../modules/bol-core/services/game.service';
 
 @Component({
-  selector: 'bol-game-route',
-  templateUrl: './game-route.component.html',
-  styleUrls: ['./game-route.component.scss']
+    selector: 'bol-game-route',
+    templateUrl: './game-route.component.html',
+    styleUrls: ['./game-route.component.scss']
 })
 export class GameRouteComponent implements OnInit {
 
-  constructor() { }
+    constructor(private gameService: GameService) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.gameService.connectToGameWitName('Join me')
+    }
 
 }
