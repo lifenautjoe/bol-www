@@ -11,6 +11,10 @@
     &:hover, &:focus {
         outline: none;
     }
+
+     &--wide{
+         width: 100%;
+     }
 }
 
 .btn--primary {
