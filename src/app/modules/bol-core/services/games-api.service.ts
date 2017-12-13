@@ -35,7 +35,7 @@ export class GamesApiService {
     }
 
     createGameWithName(gameName: string): Bluebird<Game> {
-        return this.promisedHttpService.put(GamesApiService.GAMES_URL, {
+        return this.promisedHttpService.put(`${GamesApiService.GAMES_URL}/create`, {
             gameName
         }, {
             responseType: 'json'
