@@ -497,7 +497,7 @@ module.exports = {
         disableHostCheck: true,
         "proxy": [
             {
-                context: ['/api'],
+                context: ['/api', '/ws'],
                 target: 'http://localhost:8080',
                 secure: false,
                 onProxyReq: function (proxyReq, req) {
