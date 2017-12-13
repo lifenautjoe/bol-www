@@ -10,6 +10,7 @@ import { GameFactoryService } from './factories/game-factory.service';
 import { BolCoreEventsService } from './services/bol-core-events.service';
 import { GamesService } from './services/games.service';
 import { GamesApiService } from './services/games-api.service';
+import { GameService } from './services/game.service';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ export class BolCoreModule {
                 LoggerFactoryService,
                 BolCoreEventsService,
                 GamesApiService,
-                GamesService
+                GamesService,
+                GameService,
             ]
         };
     }
