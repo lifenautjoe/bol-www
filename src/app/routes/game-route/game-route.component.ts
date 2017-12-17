@@ -12,7 +12,7 @@ export class GameRouteComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.gameService.connectToGameWitName('Join me')
+        this.gameService.connectToCurrentGame();
     }
 
 }
