@@ -1,4 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
+import { HasGameGuard } from './guards/has-game.guard';
 
 export const ROUTES = [
     {
@@ -13,7 +14,8 @@ export const ROUTES = [
     {
         path: 'game', loadChildren: './routes/game-route/game-route.module#GameRouteModule',
         canActivate: [
-            AuthGuard
+            AuthGuard,
+            HasGameGuard
         ]
     },
     {

@@ -10,6 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AppBootstrapService } from './app-bootstrap.service';
 import { BolCoreEventsToRouterMediatorService } from './mediators/bol-core-events-to-router-mediator.service';
 import { RouterHelperService } from './services/router-helper.service';
+import { HasGameGuard } from './guards/has-game.guard';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RouterHelperService } from './services/router-helper.service';
         BolCoreEventsToRouterMediatorService,
         AppBootstrapService,
         RouterHelperService,
-        AuthGuard
+        AuthGuard,
+        HasGameGuard
     ],
     bootstrap: [AppComponent]
 })
