@@ -8,6 +8,7 @@ import { LoggerFactoryService, Logolous } from './logger-factory.service';
 import { Client, Message } from '@stomp/stompjs';
 import { NoelEvent } from 'noel/dist/types/event';
 import Noel from 'noel';
+import { GamePlayOutcomeMessage } from '../messages/game-play-outcome-message';
 
 @Injectable()
 export class GameService {
@@ -26,7 +27,7 @@ export class GameService {
                 private gamesApiService: GamesApiService) {
         this.logger = loggerFactoryService.make('GameService');
         const ee = new Noel();
-        this.gameMessageEvent = ee.getEvent('onGameMessage');
+        this.gameMessageEvent = ee.getEvent('onGamePlayOutcomeMessage');
         this.gameConnectionChangedEvent = ee.getEvent('onGameConnectionChanged');
     }
 
@@ -34,7 +35,7 @@ export class GameService {
         return this.gameConnectionChangedEvent.on(listener);
     }
 
-    onGameMessage(listener) {
+    onGamePlayOutcomeMessage(listener: OnGamePlayOutcomeMessageListener) {
         return this.gameMessageEvent.on(listener);
     }
 
@@ -52,8 +53,12 @@ export class GameService {
             throw new Error('User has no game');
         }
 
+        if (this.stompConnection) {
+            throw new Error('User is already connected');
+        }
+
         const socket = new SockJS(GameService.SOCK_JS_PATH);
-        const stompClient = Stomp.over(socket);
+        const stompClient = (this.stompConnection = Stomp.over(socket));
 
         stompClient.connect({}, (frame) => {
             this.logger.info('Connected to socket');
@@ -61,8 +66,9 @@ export class GameService {
             const currentGameName = this.currentGame.getName();
 
             stompClient.subscribe(`${GameService.STOMP_GAME_QUEUE_NAME}/${currentGameName}`, (message: Message) => {
+                const parsedBody = JSON.parse(message.body);
                 this.logger.info('Received', message);
-                this.gameMessageEvent.emit(message);
+                this.gameMessageEvent.emit(parsedBody);
             });
         });
     }
@@ -84,3 +90,7 @@ export class GameService {
         this.currentGame = game;
     }
 }
+
+export type OnGamePlayOutcomeMessageListener = (gamePlayOutcomeMessage: GamePlayOutcomeMessage) => void;
+
+
