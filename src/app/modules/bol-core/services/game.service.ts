@@ -5,7 +5,9 @@ import { GamesApiService } from './games-api.service';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { LoggerFactoryService, Logolous } from './logger-factory.service';
-import { Message } from '@stomp/stompjs';
+import { Client, Message } from '@stomp/stompjs';
+import { NoelEvent } from 'noel/dist/types/event';
+import Noel from 'noel';
 
 @Injectable()
 export class GameService {
@@ -15,10 +17,54 @@ export class GameService {
 
     private logger: Logolous;
     private currentGame: Game;
+    private stompConnection: Client;
+
+    private gameMessageEvent: NoelEvent;
+    private gameConnectionChangedEvent: NoelEvent;
 
     constructor(loggerFactoryService: LoggerFactoryService,
                 private gamesApiService: GamesApiService) {
         this.logger = loggerFactoryService.make('GameService');
+        const ee = new Noel();
+        this.gameMessageEvent = ee.getEvent('onGameMessage');
+        this.gameConnectionChangedEvent = ee.getEvent('onGameConnectionChanged');
+    }
+
+    onGameConnectionChanged(listener) {
+        return this.gameConnectionChangedEvent.on(listener);
+    }
+
+    onGameMessage(listener) {
+        return this.gameMessageEvent.on(listener);
+    }
+
+    disconnectFromCurrentGame() {
+        if (this.stompConnection) {
+            this.stompConnection.disconnect(() => {
+                this.logger.info('Disconnected from socket');
+                this.gameConnectionChangedEvent.emit(false);
+            });
+        }
+    }
+
+    connectToCurrentGame() {
+        if (!this.hasGame()) {
+            throw new Error('User has no game');
+        }
+
+        const socket = new SockJS(GameService.SOCK_JS_PATH);
+        const stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, (frame) => {
+            this.logger.info('Connected to socket');
+            this.gameConnectionChangedEvent.emit(true);
+            const currentGameName = this.currentGame.getName();
+
+            stompClient.subscribe(`${GameService.STOMP_GAME_QUEUE_NAME}/${currentGameName}`, (message: Message) => {
+                this.logger.info('Received', message);
+                this.gameMessageEvent.emit(message);
+            });
+        });
     }
 
     joinGame(game: Game): Bluebird<void> {
@@ -30,38 +76,11 @@ export class GameService {
         });
     }
 
-    createGameWithName(gameName: string): Bluebird<Game> {
-        return this.gamesApiService.createGameWithName(gameName);
-    }
-
     hasGame(): boolean {
-        return typeof this.currentGame === 'undefined';
+        return typeof this.currentGame !== 'undefined';
     }
 
-    private onGameMessage() {
-
-    }
-
-    private setGame(game: Game) {
+    setGame(game: Game) {
         this.currentGame = game;
-        this.connectToGame(this.currentGame);
     }
-
-    private connectToGame(game: Game) {
-        const gameName = game.getName();
-        this.connectToGameWitName(gameName);
-    }
-
-    connectToGameWitName(gameName: string) {
-        const socket = new SockJS(GameService.SOCK_JS_PATH);
-        const stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, (frame) => {
-            this.logger.info('Connected to socket!');
-            stompClient.subscribe(`${GameService.STOMP_GAME_QUEUE_NAME}/${gameName}`, (message: Message) => {
-                this.logger.info('Received', message);
-            });
-        });
-    }
-
 }
