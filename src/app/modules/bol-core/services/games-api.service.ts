@@ -40,7 +40,9 @@ export class GamesApiService {
         }, {
             responseType: 'json'
         }).then((response: CreateGameResponse) => {
-            return this.gameFactoryService.make(response);
+            return this.gameFactoryService.make({
+                name: gameName
+            });
         });
     }
 }
