@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../../../../modules/bol-core/models/game';
-import { GamesService } from '../../../../modules/bol-core/services/games.service';
 import { LoggerFactoryService, Logolous } from '../../../../modules/bol-core/services/logger-factory.service';
 import { BolCoreEventsService } from '../../../../modules/bol-core/services/bol-core-events.service';
+import { GameService } from '../../../../modules/bol-core/services/game.service';
 
 @Component({
     selector: 'bol-search-result-game',
@@ -19,7 +19,7 @@ export class SearchResultGameComponent implements OnInit {
 
     constructor(private loggerFactoryService: LoggerFactoryService,
                 private bolCoreEventsService: BolCoreEventsService,
-                private gamesService: GamesService) {
+                private gameService: GameService) {
         this.logger = loggerFactoryService.make('SearchResultGameComponent');
     }
 
@@ -29,7 +29,7 @@ export class SearchResultGameComponent implements OnInit {
 
     onWantsToJoinGame(game: Game) {
         this.joinGameInProgress = true;
-        return this.gamesService.joinGame(game).then(() => {
+        return this.gameService.joinGame(game).then(() => {
             this.logger.info(`Joined game with name ${game.getName()}! Sending to game route!`);
             this.bolCoreEventsService.emitUserJoinedGame(game);
         }).catch((err) => {

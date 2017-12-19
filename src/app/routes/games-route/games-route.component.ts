@@ -4,6 +4,7 @@ import * as Bluebird from 'bluebird';
 import { GamesService } from '../../modules/bol-core/services/games.service';
 import { BolCoreEventsService } from '../../modules/bol-core/services/bol-core-events.service';
 import { LoggerFactoryService, Logolous } from '../../modules/bol-core/services/logger-factory.service';
+import { GameService } from '../../modules/bol-core/services/game.service';
 
 @Component({
     selector: 'bol-games-route',
@@ -30,7 +31,8 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
 
     constructor(private loggerFactoryService: LoggerFactoryService,
                 private bolCoreEventsService: BolCoreEventsService,
-                private gamesService: GamesService) {
+                private gamesService: GamesService,
+                private gameService: GameService) {
         this.logger = loggerFactoryService.make('GamesRouteComponent');
     }
 
@@ -72,6 +74,7 @@ export class GamesRouteComponent implements OnInit, OnDestroy {
         this.createGameInProgress = true;
         const gameName = this.gameToCreateName;
         return this.gamesService.createGameWithName(gameName).then((game) => {
+            this.gameService.setGame(game);
             this.bolCoreEventsService.emitUserCreatedGame(game);
         }).catch((err) => {
             this.logger.error(`Could not create game with name "${gameName}" with error:`, err);

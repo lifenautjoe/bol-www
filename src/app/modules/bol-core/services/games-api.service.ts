@@ -34,13 +34,34 @@ export class GamesApiService {
         });
     }
 
+    quitGame(): Bluebird<void> {
+        return this.promisedHttpService.post(`${GamesApiService.GAMES_URL}/quit`, null, {
+            responseType: 'json'
+        });
+    }
+
+
     createGameWithName(gameName: string): Bluebird<Game> {
         return this.promisedHttpService.put(`${GamesApiService.GAMES_URL}/create`, {
             gameName
         }, {
             responseType: 'json'
         }).then((response: CreateGameResponse) => {
-            return this.gameFactoryService.make(response);
+            return this.gameFactoryService.make({
+                name: gameName
+            });
         });
     }
+
+    playAtSlotWithIdForGame(slotId: number, game: Game) {
+        const gameName = game.getName();
+
+        return this.promisedHttpService.post(`${GamesApiService.GAMES_URL}/play`, {
+            gameName,
+            slotId
+        }, {
+            responseType: 'json'
+        });
+    }
+
 }
