@@ -7,6 +7,7 @@ import * as Bluebird from 'bluebird';
 import { PromisedHttpService } from './promised-http.service';
 import { IsLoggedInResponse } from '../responses/is-logged-in-response';
 import { IsLoggedInParsedResponse } from '../responses/is-logged-in-parsed-response';
+import { LogInResponse } from '../responses/log-in-response';
 
 @Injectable()
 export class AuthApiService {
@@ -22,8 +23,10 @@ export class AuthApiService {
     logIn(data: LoginData): Bluebird<User> {
         return this.promisedHttpService.post(AuthApiService.LOGIN_URL, data, {
             responseType: 'json'
-        }).then((response: UserData) => {
-            return this.userFactoryService.make(response);
+        }).then((response: LogInResponse) => {
+            return this.userFactoryService.make({
+                name: response.userName
+            });
         });
     }
 
