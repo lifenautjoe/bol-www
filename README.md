@@ -1,27 +1,63 @@
-# BolWww
+# bol-www
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0.
+The Frontend Application for [mancalive](https://secure-cliffs-35079.herokuapp.com/auth), a realtime mancala experiment.
 
-## Development server
+## TOC
+- [Requirements](#requirements)
+- [Development](#development)
+- [Building for production](#building-for-production)
+- [Useful links](#useful-links)
+- [License](#license)
+- [Author](#author)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Requirements
 
-## Code scaffolding
+* [Node 8.x](https://nodejs.org/en/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Development
 
-## Build
+Clone the repository
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```sh
+git clone git@github.com:lifenautjoe/bol-www.git
+```
 
-## Running unit tests
+Change to the root directory
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```sh
+cd bol-www
+```
 
-## Running end-to-end tests
+Install the project dependencies
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```sh
+npm install
+```
 
-## Further help
+Start the development server
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```sh
+npm start
+```
+
+## Building for production
+
+Bundle and optimize the application and it's assets for production.
+
+```bash
+npm run build
+```
+The build artifacts will be stored in the `dist/` directory. 
+
+## Useful links
+
+* [Angular CLI reference](https://github.com/angular/angular-cli/blob/master/README.md)
+* [Angular reference](https://angular.io/docs)
+
+## License
+
+MIT
+
+## Author
+
+Joel Hernandez  | [Website](www.lifenautjoe.com)
