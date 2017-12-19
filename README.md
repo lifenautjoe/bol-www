@@ -18,25 +18,30 @@ The Frontend Application for [mancalive](https://secure-cliffs-35079.herokuapp.c
 
 ## Development
 
-Clone the repository
+**Clone and run the [backend application](https://github.com/lifenautjoe/bol)**
+
+It is a must.
+The development server will forward requests to it on port `8080`.
+
+**Clone the repository**
 
 ```sh
 git clone git@github.com:lifenautjoe/bol-www.git
 ```
 
-Change to the root directory
+**Change to the root directory**
 
 ```sh
 cd bol-www
 ```
 
-Install the project dependencies
+**Install the project dependencies**
 
 ```sh
 npm install
 ```
 
-Start the development server
+**Start the development server**
 
 ```sh
 npm start
