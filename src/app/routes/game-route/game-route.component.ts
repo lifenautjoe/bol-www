@@ -66,64 +66,6 @@ export class GameRouteComponent implements OnInit, OnDestroy, AfterViewInit {
         this.gameService.disconnectFromCurrentGame();
     }
 
-    ngAfterViewInit() {
-        /* this.onGamePlayOutcomeMessage({
-             'gameFinished': false,
-             'nextTurnHolderUserName': 'pepe',
-             'winnerUserName': null,
-             'gameName': 'aasd',
-             'slots': [{
-                 'id': 1,
-                 'stones': [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}],
-                 'empty': false
-             }, {'id': 2, 'stones': [{'id': 6}, {'id': 7}, {'id': 8}, {'id': 9}, {'id': 10}], 'empty': false}, {
-                 'id': 3,
-                 'stones': [{'id': 11}, {'id': 12}, {'id': 13}, {'id': 14}, {'id': 15}],
-                 'empty': false
-             }, {
-                 'id': 4,
-                 'stones': [{'id': 16}, {'id': 17}, {'id': 18}, {'id': 19}, {'id': 20}],
-                 'empty': false
-             }, {
-                 'id': 5,
-                 'stones': [{'id': 21}, {'id': 22}, {'id': 23}, {'id': 24}, {'id': 25}],
-                 'empty': false
-             }, {
-                 'id': 6,
-                 'stones': [{'id': 26}, {'id': 27}, {'id': 28}, {'id': 29}, {'id': 30}],
-                 'empty': false
-             }, {'id': 7, 'stones': [], 'empty': true}, {
-                 'id': 8,
-                 'stones': [{'id': 31}, {'id': 32}, {'id': 33}, {'id': 34}, {'id': 35}],
-                 'empty': false
-             }, {
-                 'id': 9,
-                 'stones': [{'id': 36}, {'id': 37}, {'id': 38}, {'id': 39}, {'id': 40}],
-                 'empty': false
-             }, {
-                 'id': 10,
-                 'stones': [{'id': 41}, {'id': 42}, {'id': 43}, {'id': 44}, {'id': 45}],
-                 'empty': false
-             }, {
-                 'id': 11,
-                 'stones': [{'id': 46}, {'id': 47}, {'id': 48}, {'id': 49}, {'id': 50}],
-                 'empty': false
-             }, {
-                 'id': 12,
-                 'stones': [{'id': 51}, {'id': 52}, {'id': 53}, {'id': 54}, {'id': 55}],
-                 'empty': false
-             }, {
-                 'id': 13,
-                 'stones': [{'id': 56}, {'id': 57}, {'id': 58}, {'id': 59}, {'id': 60}],
-                 'empty': false
-             }, {'id': 14, 'stones': [], 'empty': true}],
-             'userAName': 'pepe',
-             'userBName': 'Ane',
-             'userAScore': 0,
-             'userBScore': 0
-         });*/
-    }
-
     onGamePlayOutcomeMessage(gamePlayOutcomeMessage: GamePlayOutcomeMessage) {
         if (!this.bootstrapped) {
             this.bootstrapWithGamePlayOutcomeMessage(gamePlayOutcomeMessage);
