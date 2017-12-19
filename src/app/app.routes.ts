@@ -23,6 +23,11 @@ export const ROUTES = [
         pathMatch: 'full'
     },
     {
+        path: '*',
+        pathMatch: 'full',
+        redirectTo: '/games'
+    },
+    {
         path: '**',
         redirectTo: '/games'
     }
