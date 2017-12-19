@@ -9,6 +9,8 @@ export interface GamePlayOutcomeMessage {
     winnerUserName?: string;
     userAName: string;
     userBName: string;
+    userAScore: number;
+    userBScore: number;
     slots: Array<GamePlayOutcomeMessageSlot>;
 }
 
