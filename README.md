@@ -6,6 +6,7 @@ The Frontend Application for [mancalive](https://secure-cliffs-35079.herokuapp.c
 - [Requirements](#requirements)
 - [Development](#development)
 - [Building for production](#building-for-production)
+- [TODO](#todo)
 - [FAQ](#faq)
   * [Backend code repository](#backend-code-repository)
 - [Useful links](#useful-links)
@@ -55,6 +56,11 @@ Bundle and optimize the application and it's assets for production.
 npm run build
 ```
 The build artifacts will be stored in the `dist/` directory.
+
+## TODO
+
+- [ ] Responsive game route
+- [ ] PROFIT!
 
 ## FAQ
 
