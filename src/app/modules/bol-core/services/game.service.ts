@@ -41,10 +41,7 @@ export class GameService {
 
     disconnectFromCurrentGame() {
         if (this.stompConnection) {
-            this.stompConnection.disconnect(() => {
-                this.logger.info('Disconnected from socket');
-                this.gameConnectionChangedEvent.emit(false);
-            });
+            this.stompConnection.unsubscribe();
         }
     }
 
@@ -53,24 +50,33 @@ export class GameService {
             throw new Error('User has no game');
         }
 
-        if (this.stompConnection) {
-            throw new Error('User is already connected');
-        }
-
         const socket = new SockJS(GameService.SOCK_JS_PATH);
-        const stompClient = (this.stompConnection = Stomp.over(socket));
+        const stompClient = (this.stompConnection || (this.stompConnection = Stomp.over(socket)));
 
         stompClient.connect({}, (frame) => {
             this.logger.info('Connected to socket');
             this.gameConnectionChangedEvent.emit(true);
             const currentGameName = this.currentGame.getName();
-
-            stompClient.subscribe(`${GameService.STOMP_GAME_QUEUE_NAME}/${currentGameName}`, (message: Message) => {
+            const stompPath = this.getCurrentGameStompPath();
+            stompClient.subscribe(stompPath, (message: Message) => {
                 const parsedBody = JSON.parse(message.body);
                 this.logger.info('Received', message);
                 this.gameMessageEvent.emit(parsedBody);
             });
         });
+    }
+
+    playAtSlotWithIdForCurrentGame(slotId: number): Bluebird<void> {
+        if (!this.hasGame()) {
+            throw new Error('User has no game');
+        }
+
+        if (!this.stompConnection) {
+            throw new Error('User is not connected');
+        }
+
+        const game = this.getCurrentGame();
+        return this.gamesApiService.playAtSlotWithIdForGame(slotId, game);
     }
 
     joinGame(game: Game): Bluebird<void> {
@@ -88,6 +94,26 @@ export class GameService {
 
     setGame(game: Game) {
         this.currentGame = game;
+    }
+
+    quitCurrentGame(): Bluebird<void> {
+        return this.gamesApiService.quitGame().then(() => {
+            this.disconnectFromCurrentGame();
+            this.removeGame();
+        });
+    }
+
+    private removeGame() {
+        this.currentGame = undefined;
+    }
+
+    private getCurrentGame() {
+        return this.currentGame;
+    }
+
+    private getCurrentGameStompPath() {
+        const currentGameName = this.getCurrentGame().getName();
+        return `${GameService.STOMP_GAME_QUEUE_NAME}/${currentGameName}`;
     }
 }
 
