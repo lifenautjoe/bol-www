@@ -6,6 +6,8 @@ The Frontend Application for [mancalive](https://secure-cliffs-35079.herokuapp.c
 - [Requirements](#requirements)
 - [Development](#development)
 - [Building for production](#building-for-production)
+- [FAQ](#faq)
+  * [Backend code repository](#backend-code-repository)
 - [Useful links](#useful-links)
 - [License](#license)
 - [Author](#author)
@@ -47,7 +49,12 @@ Bundle and optimize the application and it's assets for production.
 ```bash
 npm run build
 ```
-The build artifacts will be stored in the `dist/` directory. 
+The build artifacts will be stored in the `dist/` directory.
+
+## FAQ
+
+#### Backend code repository
+The backend code repository is [here](https://github.com/lifenautjoe/bol).
 
 ## Useful links
 
