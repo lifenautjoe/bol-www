@@ -60,6 +60,7 @@ The build artifacts will be stored in the `dist/` directory.
 ## TODO
 
 - [ ] Responsive game route
+- [ ] Game route code cleanup
 - [ ] PROFIT!
 
 ## FAQ
