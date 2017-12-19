@@ -36,8 +36,9 @@
                     <div class="games-search">
                         <input type="text" name="gameName" id="gameName" placeholder="Game name"
                                required
+                               pattern="^[a-zA-Z0-9 ]*"
                                minlength="3"
-                               maxlength="24"
+                               maxlength="12"
                                [(ngModel)]="gameToCreateName"
                                #gameName="ngModel">
                     </div>
